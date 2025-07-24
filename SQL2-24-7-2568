@@ -1,0 +1,61 @@
+SELECT EmployeeID,TitleOfCourtesy,FirstName,LastName FROM Employees WHERE City = 'London';
+
+SELECT * FROM Products WHERE CategoryID IN (1, 2, 4, 8) AND UnitPrice BETWEEN 50 AND 100;
+
+SELECT Country,City,CompanyName,ContactName,Phone FROM Customers;
+
+SELECT * FROM Products WHERE (CategoryID = 1 AND UnitPrice <= 50) OR (CategoryID = 8 AND UnitPrice <= 75);
+
+SELECT CompanyName FROM Customers WHERE Country = 'USA' AND Fax IS NULL ORDER BY CompanyName ASC;
+
+SELECT CustomerID, CompanyName, ContactName FROM Customers Where CompanyName LIKE '%con%';
+
+SELECT ProductID AS รหัสสินค้า,  ProductName AS ชื่อสินค้า, UnitPrice AS ราคา, UnitsInStock AS จำนวน, UnitPrice * UnitsInStock AS มูลค่าสินค้า FROM Products;
+
+SELECT ProductID AS รหัส, ProductName AS สินค้า,UnitsInStock + UnitsOnOrder AS จำวนวคงเหลือทั้งหมด,ReorderLevel AS จุดสั้งซื้อ  FROM Products Where (UnitsInStock + UnitsOnOrder) <ReorderLevel
+
+SELECT ProductID,ProductName,UnitPrice,ROUND(UnitPrice * 0.07,2) AS Vat7 FROM Products 
+
+SELECT EmployeeID,TitleOfCourtesy + FirstName + SPACE(1)+LastName AS [Employee Name] FROM Employees
+
+SELECT * FROM [Order Details] Where OrderID = 10250
+
+SELECT OrderID, ProductID,UnitPrice,Quantity,Discount,ROUND((UnitPrice * Quantity) * (1-Discount),2) AS Netprice FROM [Order Details] Where OrderID = 10250
+
+SELECT Count(*) AS จำวนวสินค้า FROM Products Where UnitsInStock < 15
+
+SELECT * FROM Products Where UnitsInStock < 15
+
+
+
+SELECT Count(*) พนักงานทั้งหมด  FROM Employees
+
+SELECT Count(*) FROM Customers Where Country = 'Brazil'
+
+SELECT COUNT(*) FROM [Order Details] Where OrderID = 10250
+
+SELECT Count(*) FROM Orders Where ShipCountry = 'USA'
+
+SELECT min(UnitPrice) AS ราคาต่ำสุด, max(UnitPrice) AS ราคาสุงสุด, AVG(UnitPrice) AS ราคาเฉลี่ย  FROM Products
+SELECT * FROM [Order Details]
+
+SELECT AVG(UnitPrice) AS ราคาเฉลี่ย,max(UnitPrice) AS ราคาสุงสุด,min(UnitPrice) AS ราคาต่ำสุด FROM [Order Details] Where ProductID = 5
+
+SELECT Country, Count(*) AS [Num of Country] FROM Customers Group By Country
+SELECT Country FROM Customers order by 1
+
+SELECT Country,Count(*)AS จำนวนลูกค้า FROM Customers Group by Country order by [จำนวนลูกค้า] desc
+SELECT Country,Count(*)AS จำนวนลูกค้า FROM Customers Group by Country HAVING count(*)<5 order by [จำนวนลูกค้า] desc
+
+SELECT Country,city,Count(*)AS จำนวนลูกค้า FROM Customers Group by Country,city
+
+SELECT * FROM Orders
+SELECT ShipCountry,ShipCity, Count(*) จำนวนใบสั่งซื้อ FROM Orders Group by ShipCountry, ShipCity
+SELECT ShipCountry, Count(*) จำนวนใบสั่งซื้อ FROM Orders Group by ShipCountry HAVING count(*)>100
+
+SELECT ShipCountry, Count(*) จำนวนใบสั่งซื้อ FROM Orders Where YEAR(OrderDate) = 1997 Group by ShipCountry Having count(*)<5
+
+SELECT * FROM [Order Details]
+SELECT ProductID, sum(Quantity) AS จำนวนที่ขายได้, max(UnitPrice) ราคาสูงสุด,MIn(UnitPrice) ราคาต่ำสุด,AVG(UnitPrice) ราคาเฉลี่ย FROM [Order Details] Group by ProductID Having sum(Quantity)>1000 order by ProductID
+
+SELECT OrderID,sum(UnitPrice* Quantity*(1-Discount)) AS TotalPrict FROM [Order Details] Group by OrderID
